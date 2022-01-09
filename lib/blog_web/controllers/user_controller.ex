@@ -1,11 +1,13 @@
 defmodule BlogWeb.UserController do
   use BlogWeb, :controller
 
+  require Logger
+
   alias Blog.Accounts
   alias Blog.Accounts.User
 
   action_fallback BlogWeb.FallbackController
-  plug :authenticate when action in [:index]
+  plug :authenticate when action in [:delete]
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -34,8 +36,9 @@ defmodule BlogWeb.UserController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+  def delete(conn, _params) do
+    # Current User assigns
+    user = Accounts.get_user!(conn.assigns.current_user)
 
     with {:ok, %User{}} <- Accounts.delete_user(user) do
       send_resp(conn, :no_content, "")

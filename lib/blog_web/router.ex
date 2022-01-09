@@ -9,9 +9,17 @@ defmodule BlogWeb.Router do
   scope "/api", BlogWeb do
     pipe_through :api
 
-    resources "/users", UserController, only: [:index, :show, :delete]
+    # Authentication routes
     post "/signup", AuthController, :create
     post "/login", AuthController, :new
+
+    # Users routes
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
+    delete "/users", UserController, :delete
+
+    # Posts routes
+    resources "/posts", PostController
   end
 
   # Enables LiveDashboard only for development

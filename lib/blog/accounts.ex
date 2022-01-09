@@ -18,7 +18,8 @@ defmodule Blog.Accounts do
 
   """
   def list_users do
-    Repo.all(User)
+    # Preload the posts - user relationship
+    Repo.all(User) |> Repo.preload(:posts)
   end
 
   @doc """
@@ -35,7 +36,8 @@ defmodule Blog.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  # Preload the posts - user relationship
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:posts)
 
   def get_user_by_email!(email) do
     Repo.get_by!(User, email: email)

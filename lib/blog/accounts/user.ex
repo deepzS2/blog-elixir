@@ -9,6 +9,9 @@ defmodule Blog.Accounts.User do
     field(:password, :string)
     field(:name, :string)
 
+    # One to many relationship, returns array and gets all posts with this user id
+    has_many :posts, Blog.Posts.Post
+
     timestamps()
   end
 

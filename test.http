@@ -5,17 +5,20 @@ Content-Type: application/json
 
 {
     "user": {
-        "email": "a@b.com",
+        "email": "a@d.com",
         "password": "123",
         "name": "deepz"
     }
 }
 
-### Ensure authenticated route
+### All users route
 
 GET http://localhost:4000/api/users HTTP/1.1
 Content-Type: application/json
-authorization: "Bearer SFMyNTY.g2gDYQJuBgDq28Y6fgFiAAFRgA.Z5g7F2ZMM30ZIbpZ8nDpHIUNWqWyhRYJtmPnMs6OBOc"
+
+### Get user by id route
+GET http://localhost:4000/api/users/1 HTTP/1.1
+Content-Type: application/json
 
 ### Login route
 
@@ -23,6 +26,53 @@ POST http://localhost:4000/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "c@d.com",
+    "email": "a@b.com",
     "password": "123"
 }
+
+### Delete account route
+
+DELETE http://localhost:4000/api/users HTTP/1.1
+Authorization: "Bearer <Your token here>"
+
+### Create post route
+
+POST http://localhost:4000/api/posts HTTP/1.1
+Authorization: "Bearer <Your token here>"
+Content-Type: application/json
+
+{
+    "post": {
+        "title": "My first post",
+        "content": "Hey this is my first post here!",
+        "tags": ["first"]
+    }
+}
+
+### Get posts route
+
+GET http://localhost:4000/api/posts HTTP/1.1
+Content-Type: application/json
+
+### Get post by id route
+
+GET http://localhost:4000/api/posts/1 HTTP/1.1
+Content-Type: application/json
+
+### Update post route
+
+PUT http://localhost:4000/api/posts/1 HTTP/1.1
+Content-Type: application/json
+Authorization: "Bearer <Your token here>"
+
+{
+    "post": {
+        "content": "Hey I changed the post content..."
+    }
+}
+
+### Delete post route
+
+DELETE http://localhost:4000/api/posts/1 HTTP/1.1
+Content-Type: application/json
+Authorization: "Bearer <Your token here>"

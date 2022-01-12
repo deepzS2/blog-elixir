@@ -19,7 +19,7 @@ defmodule Blog.Posts do
   """
   def list_posts do
     # Preload the user - posts relationship
-    Repo.all(Post) |> Repo.preload(:user)
+    Repo.all(Post) |> Repo.preload([:user, :comments])
   end
 
   @doc """
@@ -37,7 +37,7 @@ defmodule Blog.Posts do
 
   """
   # Preload the user - posts relationship
-  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload(:user)
+  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload([user: [], comments: [:user]])
 
   @doc """
   Creates a post.
@@ -55,6 +55,17 @@ defmodule Blog.Posts do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, %Post{} = post} ->
+        post = Repo.preload(post, :user)
+        {:ok, post}
+
+      {:error, changeset} ->
+        {:error, changeset}
+
+      _ ->
+        {:error, nil}
+    end
   end
 
   @doc """

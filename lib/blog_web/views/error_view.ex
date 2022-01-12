@@ -17,4 +17,8 @@ defmodule BlogWeb.ErrorView do
   def render("401.json", _assigns) do
     %{message: "You need to be authenticated to access this route"}
   end
+
+  def render("unauthorized.json", %{route: route}) do
+    %{message: "You are not the owner of the #{route}!"}
+  end
 end

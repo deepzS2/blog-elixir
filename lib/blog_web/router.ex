@@ -14,12 +14,18 @@ defmodule BlogWeb.Router do
     post "/login", AuthController, :new
 
     # Users routes
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
-    delete "/users", UserController, :delete
+    resources "/users", UserController, only: [:index, :show, :delete]
+    # get "/users", UserController, :index
+    # get "/users/:id", UserController, :show
+    # delete "/users", UserController, :delete
 
     # Posts routes
-    resources "/posts", PostController
+    resources "/posts", PostController, except: [:new]
+
+    # Comments routes
+    resources "/comments", CommentController, only: [:update, :delete]
+
+    post "/post/:id/comment", CommentController, :create
   end
 
   # Enables LiveDashboard only for development

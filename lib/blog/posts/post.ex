@@ -10,6 +10,7 @@ defmodule Blog.Posts.Post do
     # One to many relationship, references id and the field is user_id by default
     # field :user_id, :id
     belongs_to :user, Blog.Accounts.User
+    has_many :comments, Blog.Posts.Comments.Comment
 
     timestamps()
   end

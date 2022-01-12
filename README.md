@@ -20,5 +20,5 @@ Você pode executar as requisições HTTP no arquivo de [testes](./test.http) on
 ## TODOs
 - [x] Migration e controller de posts;
 - [x] Criar as relações entre posts e users;
-- [ ] Comentários em partes do código onde pode ser de difícil entendimento;
-- [ ] Migration e controller de comentários em posts;
+- [x] Comentários em partes do código onde pode ser de difícil entendimento;
+- [x] Migration e controller de comentários em posts;
